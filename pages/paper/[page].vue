@@ -1,12 +1,14 @@
 <template>
     <div>
-        <p>This page will be displayed at the /about route.{{ count }}</p>
+        <p>考试页码{{ $route.params.page }}</p>
     </div>
 </template>
 <script setup>
 useHead({
-  title:'欢迎about',
+  title:'paper',
 })
 const count = ref(0)
 onMounted(()=> count.value++)
+const route = useRoute()
+console.log(route.params.page)
 </script>
