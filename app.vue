@@ -11,7 +11,7 @@
 import { NConfigProvider } from "naive-ui";
 useHead({
   titleTemplate: (titleChunk) => {
-    return titleChunk ? `山东建筑业协会-${titleChunk}` : "山东建筑业协会";
+    return titleChunk ? `${titleChunk} - 山东南翔哇唧唧哇` : "山东南翔哇唧唧哇";
   },
 });
 </script>

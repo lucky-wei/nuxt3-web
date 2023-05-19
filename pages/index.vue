@@ -1,14 +1,33 @@
 <template>
-  <div>
-    <h1>首页</h1>
-    
-  </div>
+  <LoadingGroup :pending="pending" :error="error">
+    <div v-for="(item, index) in data" :key="index">
+      <banner :data="item.data" v-if="item.type == 'swiper'"> </banner>
+      <image-nav :data="item.data" v-else-if="item.type == 'icons'"></image-nav>
+      <image-ad :data="item.data" v-else-if="item.type == 'imageAd'"></image-ad>
+      <list-card
+        :title="item.title"
+        :data="item.data"
+        v-else-if="item.type == 'list'"
+      ></list-card>
+      <list-card
+        :title="item.title"
+        :data="item.data"
+        :type="item.listType"
+        v-else-if="item.type == 'promotion'"
+      ></list-card>
+    </div>
+  </LoadingGroup>
 </template>
 <script setup>
 useHead({
   title: "首页",
 });
+const { pending, refresh, data, error } = await useIndexDataApi();
 
+//服务端直接报错
+if (process.server && error.value) {
+  throwError(error?.value?.data);
+}
 </script>
 <style>
 /* .btn {

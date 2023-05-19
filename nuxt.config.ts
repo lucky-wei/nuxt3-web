@@ -2,12 +2,24 @@
 export default defineNuxtConfig({
     app: {
         head: {
+            // title: '山东南翔',
+            // titleTemplate:"%s - 山东南翔",
+            charset: 'utf-8',
+            htmlAttrs: {
+                lang: "zh-cn"
+            },
             meta: [
                 {
                     name: 'description', content: 'My amazing site .'
+                },
+                {
+                    name: 'keywords', content: 'My amazing site 关键词.'
                 }
             ]
         }
+    },
+    imports:{
+        dirs:['apis']
     },
     modules: [
         'nuxt-windicss',
@@ -28,7 +40,7 @@ export default defineNuxtConfig({
                     : []
         }
     },
-    css:[
+    css: [
         '@/assets/css/main.css'
     ]
 })
