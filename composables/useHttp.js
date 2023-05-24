@@ -1,3 +1,4 @@
+import { createDiscreteApi } from "naive-ui"
 const fetchConfig = {
     baseURL: "http://demonuxtapi.dishait.cn/pc",
     headers: {
@@ -25,16 +26,25 @@ export async function useHttp(key, url, options = {}) {
             return res.data;
         },
     })
+    // 客户端错误处理
+    if (process.client && res.error.value) {
+        const msg = res.error.value?.data?.data
+        // 懒加载会报错
+        if (!options.lazy) {
+            const { message } = createDiscreteApi(['message'])
+            message.error(msg)
+        }
+    }
     return res
 }
 
 // get
-export function useHttpGet(key,url,options = {}){
+export function useHttpGet(key, url, options = {}) {
     options.method = "GET"
-    return useHttp(key,url,options)
+    return useHttp(key, url, options)
 }
 // post
-export function useHttpPost(key,url,options = {}){
+export function useHttpPost(key, url, options = {}) {
     options.method = "POST"
-    return useHttp(key,url,options)
+    return useHttp(key, url, options)
 }

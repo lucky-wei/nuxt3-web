@@ -10,3 +10,16 @@ export function useQueryToString(query = {}) {
     }
     return q
 }
+
+// 登录回车事件绑定
+export function useEnterEvent(event) {
+    function handleEnterEvent(e) {
+        if (e.key === "Enter") {
+            event()
+            // 取消事件默认动作
+            e.preventDefault()
+        }
+    }
+    onBeforeMount(()=> document.addEventListener("keydown", handleEnterEvent))
+    onUnmounted(()=> document.removeEventListener("keydown", handleEnterEvent))
+}

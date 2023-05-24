@@ -20,13 +20,16 @@
             </n-icon>
           </template>
         </n-button>
-        <n-dropdown :options="userOptions">
+        <nuxt-link to="/login">
+          <n-button secondary strong>登录</n-button>
+        </nuxt-link>
+        <!-- <n-dropdown :options="userOptions">
           <n-avatar
             round
             size="small"
             src="https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg"
           />
-        </n-dropdown>
+        </n-dropdown> -->
       </div>
     </div>
     <div class="w-100% h-80px"></div>
@@ -148,7 +151,10 @@ const isMenuActive = (item) => {
     let i = item.match.findIndex((o) => {
       let res = true;
       if (o.params && typeof o.params == "object") {
-        res = (Object.keys(o.params).findIndex(k=> route.params[k] == o.params[k])) != -1
+        res =
+          Object.keys(o.params).findIndex(
+            (k) => route.params[k] == o.params[k]
+          ) != -1;
       }
       return o.name == route.name && res;
     });
@@ -160,8 +166,8 @@ function handlerOpen(path) {
   // console.log(path);
   navigateTo(path);
 }
-const SearchBarRef = ref(null)
-const openSearch = ()=> SearchBarRef.value.open()
+const SearchBarRef = ref(null);
+const openSearch = () => SearchBarRef.value.open();
 </script>
 <style>
 .navbar {
