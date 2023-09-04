@@ -20,16 +20,19 @@
             </n-icon>
           </template>
         </n-button>
-        <nuxt-link to="/login">
+        <nuxt-link to="/login" v-if="!user">
           <n-button secondary strong>登录</n-button>
         </nuxt-link>
-        <!-- <n-dropdown :options="userOptions">
+        <n-dropdown :options="userOptions" @select="handleSelect" v-else>
           <n-avatar
             round
             size="small"
-            src="https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg"
+            :src="
+              user.avatar ||
+              'https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg'
+            "
           />
-        </n-dropdown> -->
+        </n-dropdown>
       </div>
     </div>
     <div class="w-100% h-80px"></div>
@@ -37,8 +40,15 @@
   </div>
 </template>
 <script setup>
-import { NIcon, NButton, NDropdown, NAvatar } from "naive-ui";
+import {
+  NIcon,
+  NButton,
+  NDropdown,
+  NAvatar,
+  createDiscreteApi,
+} from "naive-ui";
 import { Search } from "@vicons/ionicons5";
+const user = useUser();
 const userOptions = [
   {
     label: "用户中心",
@@ -49,6 +59,23 @@ const userOptions = [
     key: "logout",
   },
 ];
+const handleSelect = (e) => {
+  if (e === "logout") {
+    const { dialog } = createDiscreteApi(["dialog"]);
+    dialog.warning({
+      content: "是否要退出登录？",
+      positiveText: "退出",
+      negativeText: "取消",
+      onPositiveClick: async () => {
+        await useLogout();
+      },
+    });
+  } else {
+    navigateTo({
+      path: "/user/history/1",
+    });
+  }
+};
 const menus = [
   {
     name: "首页",

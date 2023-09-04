@@ -120,22 +120,30 @@ const onSubmit = () => {
   formRef.value?.validate(async (errors) => {
     if (errors) return;
     loading.value = true;
-    let { data, error } = await useLoginAPi(form);
+
+    let { data, error } =
+      type.value === "login"
+        ? await useLoginAPi(form)
+        : await useRegisterAPi(form);
     loading.value = false;
-    console.log('data',data)
-    console.log('error',error)
     if (error.value) return;
-    const { message } = createDiscreteApi(['message'])
-    message.success("登录成功!");
-    // 将用户登录成功返回token存在cookie当中
-    const token = useCookie();
-    token.value = data.value.token;
-    navigateTo(route.query.form || "/", { replace: true });
+    const { message } = createDiscreteApi(["message"]);
+    message.success(type.value === "login" ? "登录成功!" : "注册成功!");
+    if (type.value === "login") {
+      // 将用户登录成功返回token存在cookie当中
+      const token = useCookie();
+      token.value = data.value.token;
+      // 全局共享状态
+      const user = useUser();
+      user.value = data.value;
+      navigateTo(route.query.form || "/", { replace: true });
+    } else {
+      changeType();
+    }
   });
 };
 
 useEnterEvent(() => onSubmit());
 </script>
 
-<style>
-</style>
+<style></style>
