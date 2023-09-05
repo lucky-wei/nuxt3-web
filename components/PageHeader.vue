@@ -72,7 +72,7 @@ const handleSelect = (e) => {
     });
   } else {
     navigateTo({
-      path: "/user/history/1",
+      path: "/user/history/center",
     });
   }
 };

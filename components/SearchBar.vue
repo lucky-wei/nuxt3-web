@@ -34,6 +34,12 @@ const open = () => {
   keyword.value = "";
   drawer.value = true;
 };
+const addKeyDownEvent = ()=>{
+
+}
+const removeKeyDownEvent = ()=>{
+
+}
 const handlSearch = () => {
   setTimeout(() => {
     drawer.value = false;
