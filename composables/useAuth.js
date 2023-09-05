@@ -15,7 +15,6 @@ export async function useRefreshUserInfo() {
   if (token.value) {
     if (!user.value) {
       let { data, error } = await useGetinfoAPi();
-      console.log("useGetinfoAPidata", data);
       // if (data.value) {
       // user.value = data.value;
       // user.value = {
