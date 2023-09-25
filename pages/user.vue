@@ -17,6 +17,7 @@
         <div class="mb-10 rounded">
           <NuxtPage :page-key="pageKey" />
         </div>
+        <user-themeset></user-themeset>
       </n-layout-content>
     </n-layout>
   </n-layout>
